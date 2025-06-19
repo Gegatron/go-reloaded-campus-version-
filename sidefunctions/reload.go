@@ -6,6 +6,17 @@ func Reload(str string) []string {
 	c := Clean(str)
 	bar := []string{}
 	n := 0
+	var temp []string
+	cou:=0
+	for _,car:=range c {
+		if cou==0 && (car=="(up)" || car=="(low)" ||car=="(cap))" ||car=="(bin)" ||car=="(hex)" ||  strings.Contains(car,"(up,")||  strings.Contains(car,"(low,")||  strings.Contains(car,"(cap,")){
+			continue
+		}
+		temp = append(temp, car)
+		cou++
+
+	}
+	c=temp
 	for i, v := range c {
 		if strings.Contains(v,"(up,") {
 			bar=MultiChanges(bar,GetNumber(v),"up",i)
@@ -20,7 +31,7 @@ func Reload(str string) []string {
 			c[i]=""
 			continue
 		}
-		switch v {
+			switch v {
 		case "(up)":
 			bar[n-1] = "up"
 			c[i] = ""
@@ -45,7 +56,9 @@ func Reload(str string) []string {
 			bar = append(bar, "nochange")
 			n++
 
+		
 		}
+		
 
 	}
 	str = SliceToString(c)

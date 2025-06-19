@@ -1,29 +1,39 @@
 package sidefunctions
 
+import "strings"
+
 func Quotes(reloaded []string)[]string{
-	b:=false
-	for i,c:=range reloaded{
-		 if c[0]=='\'' && b && i>0{
-			reloaded[i-1]=reloaded[i-1]+"'"
-			if len(c)==1 {
-				reloaded[i]=""
-				b=false
-				continue
+	var quotes []string
+	str:=SliceToString(reloaded)
+	cou:=0
+	b:=0
+	for i,c:=range str {
+		if i==len(str)-1 && c!='\'' {
+			if cou==0 {
+				return reloaded
 			}
-			reloaded[i]=string(reloaded[i][0:])
-			b=false
-		}else if c[len(c)-1]=='\'' && !b  && i<len(reloaded)-1{
-			reloaded[i+1]="'"+reloaded[i+1]
-			if len(c)==1 {
-				reloaded[i]=""
-				b=true
-				continue
-			}
-			b=true
-			reloaded[i]=string(reloaded[i][:len(reloaded[i])-1])
+			
+			quotes = append(quotes, "'"+str[cou:])
+			cou=i+1
+		}
+		if i==len(str)-1 && c=='\'' && b%2==0{
+			quotes = append(quotes, str[cou:])
+		
+			continue
+		}
+		if c=='\'' && b%2==0{
+			
+			quotes = append(quotes, str[cou:i] )
+			cou=i+1
+			b++
+		}else if c=='\'' && b%2!=0 {
+			
+			quotes = append(quotes, "'"+strings.TrimSpace(str[cou:i])+"'" )
+			cou=i+1
+			b++
 		}
 	}
-	str:=SliceToString(reloaded)
-	reloaded=Clean(str)
-	return reloaded
+	str=SliceToString(quotes)
+	quotes=Clean(str)
+	return quotes
 }
