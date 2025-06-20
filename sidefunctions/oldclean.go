@@ -1,6 +1,6 @@
 package sidefunctions
 
-func Clean(s string) []string {
+func OldClean(s string) []string {
 	cou := 0
 	var cleaned []string
 	b := false

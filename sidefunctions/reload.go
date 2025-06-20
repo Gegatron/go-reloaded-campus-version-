@@ -7,31 +7,32 @@ func Reload(str string) []string {
 	bar := []string{}
 	n := 0
 	var temp []string
-	cou:=0
-	for _,car:=range c {
-		if cou==0 && (car=="(up)" || car=="(low)" ||car=="(cap))" ||car=="(bin)" ||car=="(hex)" ||  strings.Contains(car,"(up,")||  strings.Contains(car,"(low,")||  strings.Contains(car,"(cap,")){
+	cou := 0
+	for _, car := range c {
+		if cou == 0 && (car == "(up)" || car == "(low)" || car == "(cap)" || car == "(bin)" || car == "(hex)" || strings.Contains(car, "(up,") || strings.Contains(car, "(low,") || strings.Contains(car, "(cap,")) {
 			continue
 		}
 		temp = append(temp, car)
 		cou++
 
 	}
-	c=temp
-	for i, v := range c {
-		if strings.Contains(v,"(up,") {
-			bar=MultiChanges(bar,GetNumber(v),"up",i)
-			c[i]=""
+	c = temp
+	s := ""
+	for i:=0;i<len(c);i++ {
+		if strings.Contains(c[i], "(up,") {
+			bar = MultiChanges(bar, GetNumber(c[i]), "up", i)
+			c[i] = ""
 			continue
-		}else if strings.Contains(v,"(low,") {
-			bar=MultiChanges(bar,GetNumber(v),"low",i)
-			c[i]=""
+		} else if strings.Contains(c[i], "(low,") {
+			bar = MultiChanges(bar, GetNumber(c[i]), "low", i)
+			c[i] = ""
 			continue
-		}else if strings.Contains(v,"(cap,") {
-			bar=MultiChanges(bar,GetNumber(v),"cap",i)
-			c[i]=""
+		} else if strings.Contains(c[i], "(cap,") {
+			bar = MultiChanges(bar, GetNumber(c[i]), "cap", i)
+			c[i] = ""
 			continue
 		}
-			switch v {
+		switch c[i] {
 		case "(up)":
 			bar[n-1] = "up"
 			c[i] = ""
@@ -45,20 +46,25 @@ func Reload(str string) []string {
 			c[i] = ""
 
 		case "(hex)":
-			bar[n-1] = "hex"
+			
+			c[i-1] = ToHex(c[i-1])
 			c[i] = ""
+			s = SliceToString(c)
+			c = Clean(s)
+			i--
 
 		case "(bin)":
-			bar[n-1] = "bin"
-			c[i] = ""
 
+			c[i-1] = ToBin(c[i-1])
+			c[i] = ""
+			s = SliceToString(c)
+			c = Clean(s)
+			i--
 		default:
 			bar = append(bar, "nochange")
 			n++
 
-		
 		}
-		
 
 	}
 	str = SliceToString(c)
@@ -72,14 +78,10 @@ func Reload(str string) []string {
 			goku = append(goku, ToLower(c[u]))
 		case "cap":
 			goku = append(goku, Capitalize(c[u]))
-		case "hex":
-			goku = append(goku, ToHex(c[u]))
-		case "bin":
-			goku = append(goku, ToBin(c[u]))
 		default:
 			goku = append(goku, c[u])
 		}
 	}
-	goku=Quotes(goku)
+	goku = Quotes(goku)
 	return goku
 }
