@@ -4,7 +4,7 @@ func Clean(s string) []string {
 		cou := 0
 	var cleaned []string
 	b := false
-	s=MakeSpaces(s)
+	
 	for i, c := range s {
 		if c == '(' {
 			b = true

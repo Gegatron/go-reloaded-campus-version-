@@ -126,8 +126,6 @@ func Reload(str string) []string {
 
 	}
 
-	c=Quotes(c)
-
 
 	return c
 }

@@ -19,14 +19,18 @@ func main() {
 		return
 	}
 	new:=sidefunctions.MakeSpaces(string(str))
+		
 	new2:=sidefunctions.Punc(sidefunctions.Clean(new))
-	new2=sidefunctions.Punc(new2)
+		
+	new2=sidefunctions.Reload(sidefunctions.SliceToString(new2))
+
 	new2=sidefunctions.Quotes(new2)
 
-	geted:=sidefunctions.Reload(sidefunctions.SliceToString(new2))
+
+	fmt.Println(new2)
 	
 	
-	err = os.WriteFile(filenames[2], []byte(sidefunctions.SliceToString(geted)), 0o644)
+	err = os.WriteFile(filenames[2], []byte(sidefunctions.SliceToString(new2)), 0o644)
 	if err != nil {
 		fmt.Println("error", err)
 		return

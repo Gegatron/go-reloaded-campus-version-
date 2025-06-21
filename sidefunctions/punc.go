@@ -1,29 +1,36 @@
 package sidefunctions
 
-func Punc(str []string)[]string{
-	cou:=0
+import "strings"
+
+func Punc(str []string) []string {
+
 	for i := 0; i < len(str); i++ {
-		
-		for j := 0; j < len(str[i]); j++ {
-			if IsPunc(str[i][j]) {
-				cou++
-			}else{
-				break
+		if i != 0 && !NotPunc(str[i]) {
+			for j := i-1; j >= 0; j-- {
+				if NotType(str[j]) {
+					str[j] = str[j] + str[i]
+					str[i] = ""
+					str = Clean(SliceToString(str))
+					i--
+					break
+				}
 			}
+		
 		}
-		if i==0 {
-			continue
-		}
-		str[i-1]=str[i-1]+str[i][:cou]
-		str[i]=str[i][cou:]
-		cou=0
+
 	}
 	return str
 }
-func IsPunc(s byte)bool{
-	if s==',' || s=='.'|| s==':'|| s==';'|| s=='?'|| s=='!' {
+func IsPunc(s byte) bool {
+	if s == ',' || s == '.' || s == ':' || s == ';' || s == '?' || s == '!' {
 		return true
 
 	}
 	return false
+}
+func NotType(s string) bool {
+	if s == "(up)" || s == "(low)" || s == "(cap)" || s == "(hex)" || s == "(bin)" || strings.Contains(s,"(cap,")|| strings.Contains(s,"(up,")|| strings.Contains(s,"(low,"){
+		return false
+	}
+	return true
 }
