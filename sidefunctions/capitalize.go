@@ -1,21 +1,17 @@
 package sidefunctions
 
-func Capitalize(s string) string {
-    result := ""
-    for i, c := range s {
-        if i == 0 || s[i-1] == ' ' || s[i-1] == '+' {
-            if c >= 'a' && c <= 'z' {
-                result += string(c - 32)
-            } else {
-                result += string(c)
-            }
-        } else {
-            if c >= 'A' && c <= 'Z' {
-                result += string(c + 32)
-            } else {
-                result += string(c)
-            }
-        }
-    }
-    return result
+import "unicode"
+
+func Capitalize(s string)string{
+	new:=[]rune(s)
+	b:=false
+	for i,c:=range new{
+		if unicode.IsLetter(c) && !b{
+			new[i]=unicode.ToUpper(new[i])
+			b=true
+		}else if unicode.IsLetter(c) && b{
+			new[i]=unicode.ToLower(new[i])
+		}
+	}
+	return string(new)
 }

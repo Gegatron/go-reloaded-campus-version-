@@ -11,11 +11,7 @@ func OldClean(s string) []string {
 		if c == ')' {
 			b = false
 		}
-		if IsPunc(byte(c)) && cou!=0 &&!b {
-			cou = i - cou
-			cleaned = append(cleaned, s[cou:i])
-			cou = 0
-		}
+		
 		if c != ' ' && i != len(s)-1 && !b {
 			cou++
 			continue

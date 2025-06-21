@@ -18,9 +18,15 @@ func main() {
 		fmt.Println("error", err)
 		return
 	}
-
-	geted := sidefunctions.Reload(string(str))
-
+	
+	geted := sidefunctions.Clean(string(str))
+	s:=string(str)
+	
+	fmt.Println(s)
+	for i := 0; i < len(geted); i++ {
+		fmt.Println(geted[i])
+	}
+	
 	err = os.WriteFile(filenames[2], []byte(sidefunctions.SliceToString(geted)), 0o644)
 	if err != nil {
 		fmt.Println("error", err)
