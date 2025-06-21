@@ -3,28 +3,30 @@ package sidefunctions
 func MakeSpaces(s string)string{
 
 b:=false
-n:=0
-b2:=false
+
+
+new:=""
 	for i := 0; i < len(s); i++ {
-		if s[i]=='(' {
-			if !b2 {
-				n=i
-				b=true
-			}
-			s=s[:n]+" "+s[n:]
+		if !b &&s[i]=='(' {
+			
+			new=new+" "+string(s[i])
+			
 			b=true
-			n++
+			
 			
 
 			continue
 		}
 		 if b && s[i]==')' {
-			s=s[:n]+" "+s[n:]
+			new=new+string(s[i])+" "
 			b=false
-			n++
 			continue
+		}else if !b && IsPunc(s[i]){
+			new=new+" "+string(s[i])+" "
+		}else{
+			new=new+string(s[i])
 		}
 		
 	}
-	return s
+	return new
 }

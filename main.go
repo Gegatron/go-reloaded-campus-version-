@@ -18,14 +18,13 @@ func main() {
 		fmt.Println("error", err)
 		return
 	}
+	new:=sidefunctions.MakeSpaces(string(str))
+	new2:=sidefunctions.Punc(sidefunctions.Clean(new))
+	new2=sidefunctions.Punc(new2)
+	new2=sidefunctions.Quotes(new2)
+
+	geted:=sidefunctions.Reload(sidefunctions.SliceToString(new2))
 	
-	geted := sidefunctions.Clean(string(str))
-	s:=string(str)
-	
-	fmt.Println(s)
-	for i := 0; i < len(geted); i++ {
-		fmt.Println(geted[i])
-	}
 	
 	err = os.WriteFile(filenames[2], []byte(sidefunctions.SliceToString(geted)), 0o644)
 	if err != nil {
