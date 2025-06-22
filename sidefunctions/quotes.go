@@ -1,33 +1,26 @@
 package sidefunctions
 
-//import "strings"
+func Quotes(reloaded []string) []string {
+	b := false
 
-func Quotes(reloaded []string)[]string{
-	var quotes []string
-
-	//cou:=0
-	b:=false
-	for i := 0; i <len(reloaded); i++ {
-		 
-		if reloaded[i]!="" && !b && reloaded[i][len(reloaded[i])-1]=='\'' && i+1<len(reloaded) {
+	for i := 0; i < len(reloaded); i++ {
+		if reloaded[i] == "'" && !b && i != len(reloaded)-1 {
 			if reloaded[i+1]!="'" {
-				reloaded[i+1]=" "+"'"+reloaded[i+1]
-			reloaded[i]=reloaded[i][:len(reloaded[i])-1]
-			b=true
+				reloaded[i+1] = "'" + reloaded[i+1]
+			reloaded[i] = ""
+
+			b = true
 			}
 			
-		}
-		
-			if reloaded[i]!="" && b && reloaded[i][0]=='\'' && i>0{
+		} else if reloaded[i] == "'" && b {
 			if reloaded[i-1]!="'" {
-				reloaded[i-1]=reloaded[i-1]+"'"
-			reloaded[i]=reloaded[i][1:]
-			b=false
-			}
+			reloaded[i-1] = reloaded[i-1] + "'"
+			reloaded[i] = ""
+
+			b = false
+		}
+		}
 	}
-}
-	str:=SliceToString(reloaded)
-	quotes=Clean(str)
-	
-	return quotes
+
+	return reloaded
 }

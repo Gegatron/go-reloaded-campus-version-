@@ -11,7 +11,11 @@ func Reload(str string) []string {
 	s := ""
 	for i := 0; i < len(c); i++ {
 		if strings.Contains(c[i], "(up,") {
-			n = GetNumber(c[i])
+			n , err := GetNumber(c[i])
+			if err!=nil {
+				c[i]="(up, <Invalid Number>)"
+					continue
+			}
 			for j := i; j >= 0; j-- {
 				if n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
@@ -31,7 +35,11 @@ func Reload(str string) []string {
 			i--
 			continue
 		} else if strings.Contains(c[i], "(low,") {
-			n = GetNumber(c[i])
+			n , err := GetNumber(c[i])
+			if err!=nil {
+				c[i]="(low, <Invalid Number>)"
+				continue
+			}
 			for j := i; j >= 0; j-- {
 				if n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
@@ -51,7 +59,11 @@ func Reload(str string) []string {
 			i--
 			continue
 		} else if strings.Contains(c[i], "(cap,") {
-			n = GetNumber(c[i])
+			n , err := GetNumber(c[i])
+			if err!=nil {
+				c[i]="(cap, <Invalid Number>)"
+					continue
+			}
 			for j := i; j >= 0; j-- {
 				if n >= 0 {
 					for u := 0; u < len(c[j]); u++ {

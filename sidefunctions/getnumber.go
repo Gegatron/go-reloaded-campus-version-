@@ -1,14 +1,25 @@
 package sidefunctions
 
-func GetNumber(s string) int {
-	num := 0
-	for _, c := range s {
-		if c == '-' {
-			return 0
+import (
+	"strconv"
+	
+)
+
+func GetNumber(s string) (int,error) {
+	new:=""
+	b:=false
+	for i := 0; i < len(s); i++ {
+		if s[i]>='0' && s[i]<='9' {
+			b=true
 		}
-		if c >= '0' && c <= '9' {
-			num = num*10 + int(c-'0')
+		if b && !(s[i]>='0' && s[i]<='9') && i!=len(s)-1{
+			new=""
+			break
+		}
+		if b && i!=len(s)-1{
+			new=new+string(s[i])
 		}
 	}
-	return num
+	return strconv.Atoi(new)
+	
 }
