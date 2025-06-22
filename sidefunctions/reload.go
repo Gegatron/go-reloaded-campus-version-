@@ -2,6 +2,7 @@ package sidefunctions
 
 import (
 	"strings"
+	"unicode"
 )
 
 func Reload(str string) []string {
@@ -13,8 +14,14 @@ func Reload(str string) []string {
 			n = GetNumber(c[i])
 			for j := i; j >= 0; j-- {
 				if n >= 0 {
-					c[j] = strings.ToUpper(c[j])
+					for u := 0; u < len(c[j]); u++ {
+						if unicode.IsLetter(rune(c[j][u])) {
+							c[j] = strings.ToUpper(c[j])
 					n--
+					break
+						}
+					}
+					
 				} else {
 					break
 				}
@@ -27,8 +34,14 @@ func Reload(str string) []string {
 			n = GetNumber(c[i])
 			for j := i; j >= 0; j-- {
 				if n >= 0 {
-					c[j] = strings.ToLower(c[j])
+					for u := 0; u < len(c[j]); u++ {
+						if unicode.IsLetter(rune(c[j][u])) {
+							c[j] = strings.ToLower(c[j])
 					n--
+					break
+						}
+					}
+					
 				} else {
 					break
 				}
@@ -41,8 +54,14 @@ func Reload(str string) []string {
 			n = GetNumber(c[i])
 			for j := i; j >= 0; j-- {
 				if n >= 0 {
-					c[j] = Capitalize(c[j])
+					for u := 0; u < len(c[j]); u++ {
+						if unicode.IsLetter(rune(c[j][u])) {
+							c[j] = Capitalize(c[j])
 					n--
+					break
+						}
+					}
+					
 				} else {
 					break
 				}
@@ -60,8 +79,14 @@ func Reload(str string) []string {
 			}
 			for j := i; j >= 0; j-- {
 				if n >= 0 {
-					c[j] = strings.ToUpper(c[j])
+					for u := 0; u < len(c[j]); u++ {
+						if unicode.IsLetter(rune(c[j][u])) {
+							c[j] = strings.ToUpper(c[j])
 					n--
+					break
+						}
+					}
+					
 				} else {
 					break
 				}
@@ -76,9 +101,15 @@ func Reload(str string) []string {
 				n = i
 			}
 			for j := i; j >= 0; j-- {
-				if NotPunc(c[j]) && NotQuotes(c[j]) && n >= 0 {
-					c[j] = strings.ToLower(c[j])
+				if  n >= 0 {
+					for u := 0; u < len(c[j]); u++ {
+						if unicode.IsLetter(rune(c[j][u])) {
+							c[j] = strings.ToLower(c[j])
 					n--
+					break
+						}
+					}
+					
 				} else {
 					break
 				}
@@ -93,9 +124,15 @@ func Reload(str string) []string {
 				n = i
 			}
 			for j := i; j >= 0; j-- {
-				if NotPunc(c[j]) && NotQuotes(c[j]) && n >= 0 {
-					c[j] = Capitalize(c[j])
+				if  n >= 0 {
+					for u := 0; u < len(c[j]); u++ {
+						if unicode.IsLetter(rune(c[j][u])) {
+							c[j] = Capitalize(c[j])
 					n--
+					break
+						}
+					}
+					
 				} else {
 					break
 				}
