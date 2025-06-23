@@ -1,1 +1,1 @@
-Simply add (Cap, (low, (low)) 5)
+Simply addD (Up, (low) (up) 2)

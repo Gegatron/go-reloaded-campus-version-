@@ -41,10 +41,16 @@ func Reload(str string) []string {
 			c = Clean(SliceToString(c))
 			i--
 			continue
-		}
-		if IsMultiFlag(c[i]) {
-			c[i]="("+SliceToString(FixFlags(c[i]))+")"
-			n , err := GetNumber(c[i])
+		}else if Paret(c[i]) {
+			if !IsMultiFlag(c[i]){
+				
+				temp:=c[i][1:len(c[i])-1]
+				temp=SliceToString(Reload(temp))
+				c[i]="("+temp+")"
+				i--
+				
+			}else if IsMultiFlag(c[i]) {
+				n , err := GetNumber(c[i])
 			if err!=nil {
 				c[i]=""
 				c=Clean(SliceToString(c))
@@ -75,6 +81,8 @@ func Reload(str string) []string {
 			c = Clean(SliceToString(c))
 			i--
 			continue
+			}
+			
 		}
 
 		switch c[i] {
