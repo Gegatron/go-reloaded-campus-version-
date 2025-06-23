@@ -6,10 +6,10 @@ func Capitalize(s string)string{
 	new:=[]rune(s)
 	b:=false
 	for i,c:=range new{
-		if unicode.IsLetter(c) && !b{
+		if IsLetter(c) && !b{
 			new[i]=unicode.ToUpper(new[i])
 			b=true
-		}else if unicode.IsLetter(c) && b{
+		}else if IsLetter(c) && b{
 			new[i]=unicode.ToLower(new[i])
 		}
 	}

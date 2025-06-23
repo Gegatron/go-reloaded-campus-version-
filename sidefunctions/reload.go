@@ -17,6 +17,9 @@ func Reload(str string) []string {
 					continue
 			}
 			for j := i; j >= 0; j-- {
+				if IsFlag(c[j]) {
+					continue
+				}
 				if n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
@@ -41,6 +44,9 @@ func Reload(str string) []string {
 				continue
 			}
 			for j := i; j >= 0; j-- {
+				if IsFlag(c[j]) {
+					continue
+				}
 				if n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
@@ -65,6 +71,9 @@ func Reload(str string) []string {
 					continue
 			}
 			for j := i; j >= 0; j-- {
+					if IsFlag(c[j]) {
+					continue
+				}
 				if n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
@@ -90,6 +99,9 @@ func Reload(str string) []string {
 				n = i
 			}
 			for j := i; j >= 0; j-- {
+				if IsFlag(c[j]) {
+					continue
+				}
 				if n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
@@ -113,6 +125,9 @@ func Reload(str string) []string {
 				n = i
 			}
 			for j := i; j >= 0; j-- {
+				if IsFlag(c[j]) {
+					continue
+				}
 				if  n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
@@ -136,6 +151,9 @@ func Reload(str string) []string {
 				n = i
 			}
 			for j := i; j >= 0; j-- {
+				if IsFlag(c[j]) {
+					continue
+				}
 				if  n >= 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {

@@ -8,10 +8,10 @@ b:=false
 
 
 new:=""
-	for i := 0; i < len(s); i++ {
-		if !b &&s[i]=='(' {
+	for i,c:=range s{
+		if !b &&c=='(' {
 			
-			new=new+" "+string(s[i])
+			new=new+" "+string(c)
 			
 			b=true
 			
@@ -19,20 +19,20 @@ new:=""
 
 			continue
 		}
-		 if b && s[i]==')' {
-			new=new+string(s[i])+" "
+		 if b && c==')' {
+			new=new+string(c)+" "
 			b=false
 			continue
-		}else if !b && IsPunc(s[i]){
-			new=new+" "+string(s[i])+" "
-		}else if !b && i!=0 && i!=len(s)-1 && IsQuote(s[i]) && !(unicode.IsLetter(rune(s[i+1])) && unicode.IsLetter(rune(s[i-1]))){
-			new=new+" "+string(s[i])+" "
-		}else if !b && i==0 && IsQuote(s[i]){
-			new=new+string(s[i])+" "
-		}else if  !b && i==len(s)-1 && IsQuote(s[i]){
-			new=new+" "+string(s[i])
+		}else if !b && IsPunc(c){
+			new=new+" "+string(c)+" "
+		}else if !b && i!=0 && i!=len(s)-1 && IsQuote(c) && !(unicode.IsLetter(rune(s[i+1])) && unicode.IsLetter(rune(s[i-1]))){
+			new=new+" "+string(c)+" "
+		}else if !b && i==0 && IsQuote(c){
+			new=new+string(c)+" "
+		}else if  !b && i==len(s)-1 && IsQuote(c){
+			new=new+" "+string(c)
 		}else{
-			new=new+string(s[i])
+			new=new+string(c)
 		}
 		
 		

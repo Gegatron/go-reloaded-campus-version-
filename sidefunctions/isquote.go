@@ -1,6 +1,6 @@
 package sidefunctions
 
-func IsQuote(s byte) bool {
+func IsQuote(s rune) bool {
 	if s=='\'' {
 		return true
 	}else{
