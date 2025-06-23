@@ -1,12 +1,20 @@
 package sidefunctions
 
-import "strings"
 
-func IsFlag(s string)bool{
+
+func IsMultiFlag(s string)bool{
 	if s[0]=='(' && s[len(s)-1]==')' {
-		if strings.Contains(s,"up")||strings.Contains(s,"cap")||strings.Contains(s,"low")||strings.Contains(s,"hex")||strings.Contains(s,"bin") {
+		if BeginsWith(s,"(up,")||BeginsWith(s,"(cap,")||BeginsWith(s,"(low,") {
 			return true
 		}
 	}
+	return false
+}
+func IsFlag(s string)bool {
+
+		if s=="(up)" || s=="(low)" || s=="(cap)"  {
+			return true
+		}
+	
 	return false
 }

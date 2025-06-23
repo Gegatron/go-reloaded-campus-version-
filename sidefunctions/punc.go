@@ -5,7 +5,7 @@ package sidefunctions
 func Punc(str []string) []string {
 
 	for i := 0; i < len(str); i++ {
-		if i != 0 && !NotPunc(str[i]) {
+		if i != 0 && AllPunc(str[i]) {
 			str[i-1] = str[i-1] + str[i]
 					str[i] = ""
 					str = Clean(SliceToString(str))
@@ -22,4 +22,18 @@ func IsPunc(s rune) bool {
 
 	}
 	return false
+}
+
+func AllPunc(s string)bool{
+	cou:=0
+	for _,c:=range s{
+		if c==',' || c=='.' || c==':' || c==';' || c=='?' || c=='!'  {
+			cou++
+		}
+	}
+	if cou==len(s) {
+		return true
+	}else{
+		return false
+	}
 }

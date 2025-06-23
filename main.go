@@ -22,7 +22,10 @@ func main() {
 	fixed := sidefunctions.Reload(proto)
 	fixed = sidefunctions.Quotes(fixed)
 	fixed = sidefunctions.Punc(fixed)
+	
 	fixed = sidefunctions.ATooAn(fixed)
+	fmt.Println(sidefunctions.FixFlags("(cap, (LoW,  (low) ) )"))
+	fmt.Println(sidefunctions.BeginsWith("(cap, 55)","(cap,"))
 
 	err = os.WriteFile(filenames[2], []byte(sidefunctions.SliceToString(fixed)), 0o644)
 	if err != nil {

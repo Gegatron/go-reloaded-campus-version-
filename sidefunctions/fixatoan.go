@@ -24,7 +24,7 @@ func ATooAn(s []string) []string {
 			
 		
 		}
-		if b {
+		if b&&  i!=len(s)-1 {
 				for j := 0; j < len(s[i+1]); j++ {
 				if unicode.IsLetter(rune(s[i+1][j])) && IsVowel(rune(s[i+1][j])) {
 					if s[i][n]=='a' {

@@ -10,74 +10,24 @@ func Reload(str string) []string {
 	n := 0
 	s := ""
 	for i := 0; i < len(c); i++ {
-		if strings.Contains(c[i], "(up,") {
-			n , err := GetNumber(c[i])
-			if err!=nil {
-				c[i]="(up, <Invalid Number>)"
-					continue
+		if IsFlag(c[i]) {
+			n = 1
+			if n > i {
+				n = i
 			}
-			for j := i; j >= 0; j-- {
-				if IsFlag(c[j]) {
-					continue
-				}
-				if n >= 0 {
+			for j := i-1; j >= 0; j-- {
+				
+				if n > 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
-							c[j] = strings.ToUpper(c[j])
-					n--
-					break
-						}
-					}
-					
-				} else {
-					break
-				}
-			}
-			c[i] = ""
-			c = Clean(SliceToString(c))
-			i--
-			continue
-		} else if strings.Contains(c[i], "(low,") {
-			n , err := GetNumber(c[i])
-			if err!=nil {
-				c[i]="(low, <Invalid Number>)"
-				continue
-			}
-			for j := i; j >= 0; j-- {
-				if IsFlag(c[j]) {
-					continue
-				}
-				if n >= 0 {
-					for u := 0; u < len(c[j]); u++ {
-						if unicode.IsLetter(rune(c[j][u])) {
-							c[j] = strings.ToLower(c[j])
-					n--
-					break
-						}
-					}
-					
-				} else {
-					break
-				}
-			}
-			c[i] = ""
-			c = Clean(SliceToString(c))
-			i--
-			continue
-		} else if strings.Contains(c[i], "(cap,") {
-			n , err := GetNumber(c[i])
-			if err!=nil {
-				c[i]="(cap, <Invalid Number>)"
-					continue
-			}
-			for j := i; j >= 0; j-- {
-					if IsFlag(c[j]) {
-					continue
-				}
-				if n >= 0 {
-					for u := 0; u < len(c[j]); u++ {
-						if unicode.IsLetter(rune(c[j][u])) {
-							c[j] = Capitalize(c[j])
+							if c[i]=="(up)" {
+								c[j] = strings.ToUpper(c[j])
+							}else if c[i]=="(low)" {
+								c[j] = strings.ToLower(c[j])
+							}else if c[i]=="(cap)" {
+								c[j] = Capitalize(c[j])
+							}
+							
 					n--
 					break
 						}
@@ -92,20 +42,26 @@ func Reload(str string) []string {
 			i--
 			continue
 		}
-		switch c[i] {
-		case "(up)":
-			n = 1
-			if n > i {
-				n = i
-			}
-			for j := i; j >= 0; j-- {
-				if IsFlag(c[j]) {
+		if IsMultiFlag(c[i]) {
+			c[i]="("+SliceToString(FixFlags(c[i]))+")"
+			n , err := GetNumber(c[i])
+			if err!=nil {
+				c[i]=""
+				c=Clean(SliceToString(c))
 					continue
-				}
-				if n >= 0 {
+			}
+			for j := i-1; j >= 0; j-- {
+				
+				if n > 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
-							c[j] = strings.ToUpper(c[j])
+							if BeginsWith(c[i],"(up,") {
+								c[j] = strings.ToUpper(c[j])
+							}else if BeginsWith(c[i],"(low,") {
+								c[j] = strings.ToLower(c[j])
+							}else if BeginsWith(c[i],"(cap,"){
+								c[j] = Capitalize(c[j])
+							}
 					n--
 					break
 						}
@@ -119,59 +75,10 @@ func Reload(str string) []string {
 			c = Clean(SliceToString(c))
 			i--
 			continue
-		case "(low)":
-			n = 1
-			if n > i {
-				n = i
-			}
-			for j := i; j >= 0; j-- {
-				if IsFlag(c[j]) {
-					continue
-				}
-				if  n >= 0 {
-					for u := 0; u < len(c[j]); u++ {
-						if unicode.IsLetter(rune(c[j][u])) {
-							c[j] = strings.ToLower(c[j])
-					n--
-					break
-						}
-					}
-					
-				} else {
-					break
-				}
-			}
-			c[i] = ""
-			c = Clean(SliceToString(c))
-			i--
-			continue
-		case "(cap)":
-			n = 1
-			if n > i {
-				n = i
-			}
-			for j := i; j >= 0; j-- {
-				if IsFlag(c[j]) {
-					continue
-				}
-				if  n >= 0 {
-					for u := 0; u < len(c[j]); u++ {
-						if unicode.IsLetter(rune(c[j][u])) {
-							c[j] = Capitalize(c[j])
-					n--
-					break
-						}
-					}
-					
-				} else {
-					break
-				}
-			}
-			c[i] = ""
-			c = Clean(SliceToString(c))
-			i--
-			continue
+		}
 
+		switch c[i] {
+	
 		case "(hex)":
 
 			c[i-1] = ToHex(c[i-1])
