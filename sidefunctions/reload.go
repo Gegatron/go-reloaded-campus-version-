@@ -41,7 +41,30 @@ func Reload(str string) []string {
 			c = Clean(SliceToString(c))
 			i--
 			continue
-		}else if Paret(c[i]) {
+		}
+		switch c[i] {
+	
+		case "(hex)":
+
+			c[i-1] = ToHex(c[i-1])
+			c[i] = ""
+			s = SliceToString(c)
+			c = Clean(s)
+			i--
+
+		case "(bin)":
+
+			c[i-1] = ToBin(c[i-1])
+			c[i] = ""
+			s = SliceToString(c)
+			c = Clean(s)
+			i--
+		default:
+
+		}
+
+		
+		if Paret(c[i]) {
 			if !IsMultiFlag(c[i]){
 				
 				temp:=c[i][1:len(c[i])-1]
@@ -85,27 +108,7 @@ func Reload(str string) []string {
 			
 		}
 
-		switch c[i] {
-	
-		case "(hex)":
-
-			c[i-1] = ToHex(c[i-1])
-			c[i] = ""
-			s = SliceToString(c)
-			c = Clean(s)
-			i--
-
-		case "(bin)":
-
-			c[i-1] = ToBin(c[i-1])
-			c[i] = ""
-			s = SliceToString(c)
-			c = Clean(s)
-			i--
-		default:
-
-		}
-
+		
 	}
 
 
