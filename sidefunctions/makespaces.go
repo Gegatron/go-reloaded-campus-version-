@@ -3,13 +3,26 @@ package sidefunctions
 import "unicode"
 
 func MakeSpaces(s string)string{
-
+b:=false
 
 new:=""
 	for i,c:=range s{
 		if c=='(' {
+			for j := i; j < len(s); j++ {
+				if s[j]==')' {
+					if IsFlag("("+SliceToString(Punc(Clean(s[i+1:j])))+")") || IsMultiFlag("("+SliceToString(Punc(Clean(s[i+1:j])))+")"){
+						new=new+" "+string(c)
+						b=true
+						
+						break
+					}
+				}
+			}
 			
-			new=new+" "+string(c)
+			
+			if !b {
+				new=new+string(c)
+			}
 			
 			
 			
@@ -17,9 +30,10 @@ new:=""
 
 			continue
 		}
-		 if c==')' {
-			new=new+string(c)+" "
+		 if c==')' && b {
 			
+			new=new+string(c)+" "
+			b=false
 			continue
 		}else if  IsPunc(c){
 			new=new+" "+string(c)+" "

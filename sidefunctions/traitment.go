@@ -5,9 +5,9 @@ proto := MakeSpaces(string(s))
 	
 
 	
-	fixed := Clean(proto)
+	fixed:=Clean(proto)
 	
-	fixed = Reload(fixed)
+	fixed=Reload(fixed)
 	
 	fixed = Punc(fixed)
 	
