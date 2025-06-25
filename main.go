@@ -18,20 +18,8 @@ func main() {
 		fmt.Println("error", err)
 		return
 	}
-	proto := sidefunctions.MakeSpaces(string(str))
-	fmt.Println(proto)
-
-	
-	fixed:=sidefunctions.Reload(proto)
-	fmt.Println(fixed)
-	fixed = sidefunctions.Quotes(fixed)
-	fixed = sidefunctions.Punc(fixed)
-	
-	fixed = sidefunctions.ATooAn(fixed)
-
-	fmt.Println(sidefunctions.BeginsWith("(cap, 55)","(cap,"))
-
-	err = os.WriteFile(filenames[2], []byte(sidefunctions.SliceToString(fixed)), 0o644)
+	fixed:=sidefunctions.Trait(string(str))
+	err = os.WriteFile(filenames[2], []byte(fixed), 0o644)
 	if err != nil {
 		fmt.Println("error", err)
 		return

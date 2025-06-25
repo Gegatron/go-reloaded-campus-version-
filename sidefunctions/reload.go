@@ -5,8 +5,8 @@ import (
 	"unicode"
 )
 
-func Reload(str string) []string {
-	c := Clean(str)
+func Reload(c []string) []string {
+	temp:=""
 	n := 0
 	s := ""
 	for i := 0; i < len(c); i++ {
@@ -63,17 +63,23 @@ func Reload(str string) []string {
 
 		}
 
-		
 		if Paret(c[i]) {
-			if !IsMultiFlag(c[i]){
+			if !IsMultiFlag(SliceToString(Punc(Clean(c[i]))) ) {
 				
-				temp:=c[i][1:len(c[i])-1]
-				temp=SliceToString(Reload(temp))
-				c[i]="("+temp+")"
+				if c[i]!=temp {
+					temp=c[i]
+					c[i]="("+SliceToString(Reload(Clean(c[i][1:len(c[i])-1])))+")"
 				i--
 				
-			}else if IsMultiFlag(c[i]) {
+				}
+				
+				
+			}
+			
+		
+		 if IsMultiFlag(SliceToString(Punc(Clean(c[i]))) ){
 				n , err := GetNumber(c[i])
+				
 			if err!=nil {
 				c[i]=""
 				c=Clean(SliceToString(c))
@@ -84,11 +90,11 @@ func Reload(str string) []string {
 				if n > 0 {
 					for u := 0; u < len(c[j]); u++ {
 						if unicode.IsLetter(rune(c[j][u])) {
-							if BeginsWith(c[i],"(up,") {
+							if BeginsWith(SliceToString(Punc(Clean(c[i]))),"(up,") {
 								c[j] = strings.ToUpper(c[j])
-							}else if BeginsWith(c[i],"(low,") {
+							}else if BeginsWith(SliceToString(Punc(Clean(c[i]))),"(low,") {
 								c[j] = strings.ToLower(c[j])
-							}else if BeginsWith(c[i],"(cap,"){
+							}else if BeginsWith(SliceToString(Punc(Clean(c[i]))),"(cap,"){
 								c[j] = Capitalize(c[j])
 							}
 					n--
@@ -105,10 +111,10 @@ func Reload(str string) []string {
 			i--
 			continue
 			}
-			
-		}
-
 		
+		
+
+		}
 	}
 
 
