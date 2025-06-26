@@ -65,8 +65,7 @@ func Reload(c []string) []string {
 			if IsMultiFlag(strings.Join(Punc(Clean(c[i])), " ")) {
 				n, err := GetNumber(c[i])
 				if err != nil {
-					c[i] = ""
-					c = Clean(strings.Join(c, " "))
+					
 					continue
 				}
 				for j := i - 1; j >= 0; j-- {
@@ -77,7 +76,7 @@ func Reload(c []string) []string {
 									c[j] = strings.ToUpper(c[j])
 								} else if strings.HasPrefix(strings.Join(Punc(Clean(c[i])), " "), "(low,") {
 									c[j] = strings.ToLower(c[j])
-								} else if strings.HasPrefix(strings.Join(Punc(Clean(c[i])), " "), MakeSpaces("(cap,")) {
+								} else if strings.HasPrefix(strings.Join(Punc(Clean(c[i])), " "), "(cap,"){
 									c[j] = Capitalize(c[j])
 								}
 								n--
