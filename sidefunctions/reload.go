@@ -70,7 +70,7 @@ func Reload(c []string) []string {
 				if c[i]!=temp {
 					temp=c[i]
 					c[i]="("+SliceToString(Reload(Clean(c[i][1:len(c[i])-1])))+")"
-				i--
+				
 				
 				}
 				
