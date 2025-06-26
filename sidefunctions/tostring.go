@@ -12,3 +12,4 @@ func SliceToString(sli []string)string{
     }
     return str
 }
+// join 
