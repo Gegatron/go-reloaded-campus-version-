@@ -1,5 +1,7 @@
 package sidefunctions
 
+import "strings"
+
 func MakeSpaces(s string) string {
 	b := 0
 
@@ -8,7 +10,7 @@ func MakeSpaces(s string) string {
 		if c == '(' {
 			for j := i; j < len(s); j++ {
 				if s[j] == ')' {
-					if IsFlag("("+SliceToString(Punc(Reload(Clean(s[i+1:j]))))+")") || IsMultiFlag("("+SliceToString(Punc(Reload(Clean(s[i+1:j]))))+")") {
+					if IsFlag("("+strings.Join(Punc(Reload(Clean(MakeSpaces(s[i+1:j]))))," ")+")") || IsMultiFlag("("+strings.Join(Punc(Reload(Clean(MakeSpaces(s[i+1:j]))))," ")+")") {
 						new = new + " " + string(c)
 						b++
 

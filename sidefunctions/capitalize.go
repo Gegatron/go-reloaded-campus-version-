@@ -15,3 +15,6 @@ func Capitalize(s string)string{
 	}
 	return string(new)
 }
+func IsLetter(s rune) bool {
+	return unicode.Is(unicode.Latin, (s)) && unicode.IsLetter(s)
+}

@@ -1,5 +1,10 @@
 package sidefunctions
 
+import (
+	
+	"strings"
+)
+
 func Clean(s string) []string {
 	cou := 0
 	var cleaned []string
@@ -10,7 +15,7 @@ func Clean(s string) []string {
 		if s[i] == '(' {
 			for j := i; j < len(s); j++ {
 				if s[j] == ')' {
-					if IsFlag("("+SliceToString(Punc(Reload(Clean(s[i+1:j]))))+")") || IsMultiFlag("("+SliceToString(Punc(Reload(Clean(s[i+1:j]))))+")") {
+					if IsFlag("("+strings.Join(Punc(Reload(Clean(s[i+1:j])))," ")+")") || IsMultiFlag("("+strings.Join(Punc(Reload(Clean(s[i+1:j])))," ")+")") {
 
 						b++
 						break
@@ -49,6 +54,6 @@ func Clean(s string) []string {
 			cleaned = append(cleaned, s[cou:])
 		}
 	}
-
+	
 	return cleaned
 }

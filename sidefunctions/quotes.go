@@ -1,5 +1,7 @@
 package sidefunctions
 
+import "strings"
+
 func Quotes(reloaded []string) []string {
 	b := false
 
@@ -8,7 +10,7 @@ func Quotes(reloaded []string) []string {
 			if reloaded[i+1][0] != '\'' {
 				reloaded[i+1] = "'" + reloaded[i+1]
 				reloaded[i] = reloaded[i][:len(reloaded[i])-1]
-				reloaded = Clean(SliceToString(reloaded))
+				reloaded = Clean(strings.Join(reloaded," "))
 				i--
 				b = true
 			}
@@ -16,7 +18,7 @@ func Quotes(reloaded []string) []string {
 			if reloaded[i-1][len(reloaded[i-1])-1] != '\'' {
 				reloaded[i-1] = reloaded[i-1] + "'"
 				reloaded[i] = reloaded[i][1:]
-				reloaded = Clean(SliceToString(reloaded))
+				reloaded = Clean(strings.Join(reloaded," "))
 				i--
 				b = false
 			}
