@@ -1,6 +1,6 @@
 package sidefunctions
 
-import "unicode"
+
 
 func MakeSpaces(s string)string{
 b:=0
@@ -37,12 +37,6 @@ new:=""
 			continue
 		}else if i!=len(s)-1 && i!=0 && IsPunc(c) && s[i+1]!=' ' && s[i-1]==' ' {
 			new=new+string(c)+" "
-		}else if  i!=0 && i!=len(s)-1 && IsQuote(c) && !(unicode.IsLetter(rune(s[i+1])) && unicode.IsLetter(rune(s[i-1]))){
-			new=new+" "+string(c)+" "
-		}else if  i==0 && IsQuote(c){
-			new=new+string(c)+" "
-		}else if   i==len(s)-1 && IsQuote(c){
-			new=new+" "+string(c)
 		}else{
 			new=new+string(c)
 		}
