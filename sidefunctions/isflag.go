@@ -8,7 +8,7 @@ func IsMultiFlag(s string)bool{
 		
 		if BeginsWith(s,"(up,") {
 			for i := 4; i < len(s)-1; i++ {
-				if s[i]!=' ' {
+				if  s[i]!=' '{
 					b=true
 				}
 				if b&&(s[i]<'0'||s[i]>'9'){

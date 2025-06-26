@@ -3,16 +3,16 @@ package sidefunctions
 import "unicode"
 
 func MakeSpaces(s string)string{
-b:=false
+b:=0
 
 new:=""
 	for i,c:=range s{
 		if c=='(' {
 			for j := i; j < len(s); j++ {
 				if s[j]==')' {
-					if IsFlag("("+SliceToString(Punc(Clean(s[i+1:j])))+")") || IsMultiFlag("("+SliceToString(Punc(Clean(s[i+1:j])))+")"){
+					if IsFlag("("+SliceToString(Punc(Reload(Clean(s[i+1:j]))))+")") || IsMultiFlag("("+SliceToString(Punc(Reload(Clean(s[i+1:j]))))+")") {
 						new=new+" "+string(c)
-						b=true
+						b++
 						
 						break
 					}
@@ -20,7 +20,7 @@ new:=""
 			}
 			
 			
-			if !b {
+			if b==0 {
 				new=new+string(c)
 			}
 			
@@ -30,13 +30,13 @@ new:=""
 
 			continue
 		}
-		 if c==')' && b {
+		 if c==')' && b>0 {
 			
 			new=new+string(c)+" "
-			b=false
+			b--
 			continue
-		}else if  IsPunc(c){
-			new=new+" "+string(c)+" "
+		}else if i!=len(s)-1 && i!=0 && IsPunc(c) && s[i+1]!=' ' && s[i-1]==' ' {
+			new=new+string(c)+" "
 		}else if  i!=0 && i!=len(s)-1 && IsQuote(c) && !(unicode.IsLetter(rune(s[i+1])) && unicode.IsLetter(rune(s[i-1]))){
 			new=new+" "+string(c)+" "
 		}else if  i==0 && IsQuote(c){

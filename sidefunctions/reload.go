@@ -64,7 +64,8 @@ func Reload(c []string) []string {
 		}
 
 		if Paret(c[i]) {
-			if !IsMultiFlag(SliceToString(Punc(Clean(c[i]))) ) {
+		
+				if !IsMultiFlag(SliceToString(Punc(Clean(c[i]))) ) {
 				
 				if c[i]!=temp {
 					temp=c[i]
@@ -75,7 +76,6 @@ func Reload(c []string) []string {
 				
 				
 			}
-			
 		
 		 if IsMultiFlag(SliceToString(Punc(Clean(c[i]))) ){
 				n , err := GetNumber(c[i])
@@ -94,7 +94,7 @@ func Reload(c []string) []string {
 								c[j] = strings.ToUpper(c[j])
 							}else if BeginsWith(SliceToString(Punc(Clean(c[i]))),"(low,") {
 								c[j] = strings.ToLower(c[j])
-							}else if BeginsWith(SliceToString(Punc(Clean(c[i]))),"(cap,"){
+							}else if BeginsWith(SliceToString(Punc(Clean(c[i]))),MakeSpaces("(cap,")){
 								c[j] = Capitalize(c[j])
 							}
 					n--
@@ -111,6 +111,7 @@ func Reload(c []string) []string {
 			i--
 			continue
 			}
+			
 		
 		
 
