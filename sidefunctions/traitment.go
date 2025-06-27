@@ -2,7 +2,6 @@ package sidefunctions
 
 import (
 	
-	"strings"
 )
 
 
@@ -22,13 +21,17 @@ proto := MakeSpaces(string(s))
 	
 
 	fixed = ATooAn(fixed)
-	/*fmt.Println(fixed)
+	
 	str:=""
 	for i := 0; i < len(fixed); i++ {
-		if fixed[i]=="\n" {
+		if i==0&&fixed[i]=="\n" {
 			continue
 		}
-		if i!=len(fixed)-1  && fixed[i+1]!="" {
+		if fixed[i]=="\n" && fixed[i-1][len(fixed[i-1])-1]=='\n' {
+			continue
+		}
+		
+		if i!=len(fixed)-1  && fixed[i+1]!="" && fixed[i][len(fixed[i])-1]=='\n' {
 			str+=fixed[i]
 			continue
 		}else if i==len(fixed)-1{
@@ -36,8 +39,8 @@ proto := MakeSpaces(string(s))
 			continue
 		}
 		str+=fixed[i]+" "
-	}*/
+	}
 	
-	return strings.Join(fixed," ")
+	return str
 }
 

@@ -56,7 +56,7 @@ func IsMultiFlag(s string) bool {
 }
 
 func IsFlag(s string) bool {
-	if s == "(up)" || s == "(low)" || s == "(cap)" {
+	if s == "(up)" || s == "(low)" || s == "(cap)" || s=="(bin)" || s=="(hex)" {
 		return true
 	}
 
