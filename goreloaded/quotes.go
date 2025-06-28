@@ -1,16 +1,23 @@
 package goreloaded
 
-import "strings"
+import (
+	
+	"strings"
+)
 
 func Quotes(reloaded []string) []string {
 	s := strings.Join(reloaded, " ")
 	index := 0
 	str := ""
 	b := true
-	for i := 0; i < len(s); i++ {
-		if b && s[i] == '\'' {
+	for i ,c:=range s {
+		if !b &&c=='\n' {
+			str += "'" + strings.Join(Clean(s[index+1:i]), " ")
+			b=true
+		}
+		if b &&c == '\'' {
 			if i == len(s)-1 {
-				str += string(s[i])
+				str += string(c)
 				continue
 			}
 			if i==0 {
@@ -27,18 +34,19 @@ func Quotes(reloaded []string) []string {
 			}
 			
 		}
-		if !b && s[i] == '\'' {
+		if !b && c == '\'' {
 			str += "'" + strings.Join(Clean(s[index+1:i]), " ") + "'" + " "
 			b = true
 			continue
 		}
 		if b {
-			str += string(s[i])
+			str += string(c)
 		}
 		if !b && i == len(s)-1 {
 			str += s[index:]
 		}
 	}
+	
 	reloaded = Clean(str)
 	return reloaded
 }

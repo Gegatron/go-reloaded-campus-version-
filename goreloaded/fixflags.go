@@ -30,20 +30,20 @@ func FixFlags(c []string) []string {
 					break
 				}
 				if n > 0 {
-					for u := 0; u < len(c[j]); u++ {
-						 if unicode.IsLetter(rune(c[j][u])) || unicode.IsNumber(rune(c[j][u])) {
+					for _,u:=range c[j] {
+						 if unicode.IsLetter(u) || unicode.IsNumber(u) {
 							if c[i] == "(up)" {
-								if unicode.IsNumber(rune(c[j][u])) {
+								if unicode.IsNumber(u) {
 									continue
 								}
 								c[j] = strings.ToUpper(c[j])
 							} else if c[i] == "(low)" {
-								if unicode.IsNumber(rune(c[j][u])) {
+								if unicode.IsNumber(u ){
 									continue
 								}
 								c[j] = strings.ToLower(c[j])
 							} else if c[i] == "(cap)" {
-								if unicode.IsNumber(rune(c[j][u])) {
+								if unicode.IsNumber(u) {
 									continue
 								}
 								c[j] = Capitalize(c[j])
@@ -81,8 +81,8 @@ func FixFlags(c []string) []string {
 					break
 				}
 					if n > 0 {
-						for u := 0; u < len(c[j]); u++ {
-							if unicode.IsLetter(rune(c[j][u])) {
+						for _,u:=range c[j] {
+							if unicode.IsLetter(u) {
 								if strings.HasPrefix(strings.Join(Punc(Clean(c[i])), " "), "(up,") {
 									c[j] = strings.ToUpper(c[j])
 								} else if strings.HasPrefix(strings.Join(Punc(Clean(c[i])), " "), "(low,") {
