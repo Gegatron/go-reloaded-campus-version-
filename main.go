@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"sidefunctions/sidefunctions"
+	"goreloaded/goreloaded"
 )
 
 func main() {
@@ -14,9 +14,9 @@ func main() {
 		fmt.Println("invalid input")
 		return
 	}
-	if filenames[1]==filenames[2] {
+	if filenames[1] == filenames[2] {
 		fmt.Println("invalid input")
-			return
+		return
 	}
 	for i := 1; i < 3; i++ {
 		if filepath.Ext(filenames[i]) != ".txt" {
@@ -25,15 +25,14 @@ func main() {
 		}
 	}
 
-
 	str, err := os.ReadFile(filenames[1])
 	if err != nil {
 		fmt.Println("error", err)
 		return
 	}
 
-	fixed := sidefunctions.Trait(string(str))
-	
+	fixed := goreloaded.Trait(string(str))
+
 	err = os.WriteFile(filenames[2], []byte(fixed), 0o644)
 	if err != nil {
 		fmt.Println("error", err)

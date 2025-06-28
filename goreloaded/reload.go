@@ -1,4 +1,4 @@
-package sidefunctions
+package goreloaded
 
 import (
 
@@ -34,23 +34,30 @@ func Reload(c []string) []string {
 			for j := i - 1; j >= 0; j-- {
 				if n > 0 {
 					for u := 0; u < len(c[j]); u++ {
-						 if unicode.IsLetter(rune(c[j][u]))  {
+						 if unicode.IsLetter(rune(c[j][u])) || unicode.IsNumber(rune(c[j][u])) {
 							if c[i] == "(up)" {
+								if unicode.IsNumber(rune(c[j][u])) {
+									continue
+								}
 								c[j] = strings.ToUpper(c[j])
 							} else if c[i] == "(low)" {
+								if unicode.IsNumber(rune(c[j][u])) {
+									continue
+								}
 								c[j] = strings.ToLower(c[j])
 							} else if c[i] == "(cap)" {
+								if unicode.IsNumber(rune(c[j][u])) {
+									continue
+								}
 								c[j] = Capitalize(c[j])
-							}
-
-							
-						}else if unicode.IsLetter(rune(c[j][u])) || unicode.IsNumber(rune(c[j][u])) {
-							if c[i]=="(bin)" {
+							}else if c[i]=="(bin)" {
 								c[j] = ToBin(c[j])
 							}else if c[i]=="(hex)" {
 								c[j] = ToHex(c[j])
+								
 							}
-							continue
+
+							
 						}else{
 							continue
 						}
@@ -152,7 +159,7 @@ func ToHex(s string)string{
 	}
 	hex,err:= strconv.ParseInt(s,16,64)
 if err!=nil {
-	return "<Not A Hexadecimal Number>"
+	return s
 }
 if b {
 	return strconv.Itoa(int(hex))+"\n"

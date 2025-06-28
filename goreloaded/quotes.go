@@ -1,4 +1,4 @@
-package sidefunctions
+package goreloaded
 
 import "strings"
 
@@ -10,7 +10,9 @@ func Quotes(reloaded []string) []string {
 	b := true
 	for i := 0; i < len(str); i++ {
 		if b && str[i] == '\'' {
-
+			if i == len(str)-1 {
+				new += string(str[i])
+			}
 			new += " "
 			index = i
 			b = false

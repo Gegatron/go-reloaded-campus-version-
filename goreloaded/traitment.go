@@ -1,8 +1,4 @@
-package sidefunctions
-
-import (
-	
-)
+package goreloaded
 
 
 

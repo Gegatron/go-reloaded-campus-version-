@@ -1,3 +1,3 @@
-module sidefunctions
+module goreloaded
 
 go 1.22.3
