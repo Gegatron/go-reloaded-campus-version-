@@ -26,6 +26,9 @@ func FixFlags(c []string) []string {
 				n = i
 			}
 			for j := i - 1; j >= 0; j-- {
+				if c[j][len(c[j])-1]=='\n' {
+					break
+				}
 				if n > 0 {
 					for u := 0; u < len(c[j]); u++ {
 						 if unicode.IsLetter(rune(c[j][u])) || unicode.IsNumber(rune(c[j][u])) {
@@ -70,7 +73,13 @@ func FixFlags(c []string) []string {
 				if err != nil {
 					continue
 				}
+				if n<0 {
+					n=0
+				}
 				for j := i - 1; j >= 0; j-- {
+					if c[j][len(c[j])-1]=='\n' {
+					break
+				}
 					if n > 0 {
 						for u := 0; u < len(c[j]); u++ {
 							if unicode.IsLetter(rune(c[j][u])) {
@@ -103,19 +112,20 @@ func GetNumber(s string) (int, error) {
 	new := ""
 	b := false
 	for i := 0; i < len(s); i++ {
-		if s[i] == '-' && new == "" {
-			return strconv.Atoi("0")
+		if !b && s[i] == '-' && new == "" {
+			new+=string(s[i])
+			b=true
+			continue
 		}
-		if s[i] >= '0' && s[i] <= '9' {
-			b = true
-		}
-		if b && !(s[i] >= '0' && s[i] <= '9') && i != len(s)-1 {
-			new = ""
-			break
+		if !b && (s[i] >='0'  && s[i]<='9') {
+			new+=string(s[i])
+			b=true
+			continue
 		}
 		if b && i != len(s)-1 {
-			new = new + string(s[i])
+			new +=string(s[i])
 		}
+		
 	}
 	
 	return strconv.Atoi(new)

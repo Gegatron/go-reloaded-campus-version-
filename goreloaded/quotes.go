@@ -11,11 +11,21 @@ func Quotes(reloaded []string) []string {
 		if b && s[i] == '\'' {
 			if i == len(s)-1 {
 				str += string(s[i])
+				continue
 			}
-			str += " "
+			if i==0 {
+				str += " "
+			index = i
+			b = false
+				continue
+			}
+			if s[i+1]==' ' || s[i-1]==' ' {
+				str += " "
 			index = i
 			b = false
 			continue
+			}
+			
 		}
 		if !b && s[i] == '\'' {
 			str += "'" + strings.Join(Clean(s[index+1:i]), " ") + "'" + " "

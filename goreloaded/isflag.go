@@ -8,7 +8,7 @@ func IsMultiFlag(s string) bool {
 		if strings.HasPrefix(s, "(up,") {
 			for i := 4; i < len(s)-1; i++ {
 				if s[i] != ' ' && !b {
-					if s[i] == '-' || s[i] == '+' {
+					if (s[i] == '-' || s[i] == '+') && (s[i+1] >= '0' && s[i+1] <='9'){
 						b = true
 						continue
 					}
@@ -23,7 +23,7 @@ func IsMultiFlag(s string) bool {
 		if strings.HasPrefix(s, "(low,") {
 			for i := 5; i < len(s)-1; i++ {
 				if s[i] != ' ' && !b {
-					if s[i] == '-' || s[i] == '+' {
+					if (s[i] == '-' || s[i] == '+' )&& (s[i+1] >= '0' && s[i+1] <='9') {
 						b = true
 						continue
 					}
@@ -38,7 +38,7 @@ func IsMultiFlag(s string) bool {
 		if strings.HasPrefix(s, "(cap,") {
 			for i := 5; i < len(s)-1; i++ {
 				if s[i] != ' ' && !b {
-					if s[i] == '-' || s[i] == '+' {
+					if (s[i] == '-' || s[i] == '+') && (s[i+1] >= '0' && s[i+1] <='9'){
 						b = true
 						continue
 					}
