@@ -6,8 +6,6 @@ import (
 )
 
 func ATooAn(s []string) []string {
-	
-	
 	for i := 0; i < len(s); i++ {
 		if i!=len(s)-1 && s[i]=="a"{
 			if strings.Contains("aeoiuhAEOIUH", string(s[i+1][0])) {

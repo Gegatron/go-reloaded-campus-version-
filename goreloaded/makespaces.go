@@ -5,13 +5,13 @@ import "strings"
 func MakeSpaces(s string) string {
 	b := 0
 
-	new := ""
+	str := ""
 	for i, c := range s {
 		if c == '(' {
 			for j := i; j < len(s); j++ {
 				if s[j] == ')' {
-					if IsFlag("("+strings.Join(Punc(Reload(Clean(MakeSpaces(s[i+1:j]))))," ")+")") || IsMultiFlag("("+strings.Join(Punc(Reload(Clean(MakeSpaces(s[i+1:j]))))," ")+")") {
-						new = new + " " + string(c)
+					if IsFlag("("+strings.Join(Punc(FixFlags(Clean(MakeSpaces(s[i+1:j]))))," ")+")") || IsMultiFlag("("+strings.Join(Punc(FixFlags(Clean(MakeSpaces(s[i+1:j]))))," ")+")") {
+						str = str + " " + string(c)
 						b++
 
 						break
@@ -20,24 +20,24 @@ func MakeSpaces(s string) string {
 			}
 
 			if b == 0 {
-				new = new + string(c)
+				str = str + string(c)
 			}
 
 			continue
 		}
 		if c == ')' && b > 0 {
 
-			new = new + string(c) + " "
+			str = str + string(c) + " "
 			b--
 			continue
 		} else if i != len(s)-1 && i != 0 && IsPunc(c) && s[i+1] != ' ' && s[i-1] == ' ' {
-			new = new + string(c) + " "
+			str = str + string(c) + " "
 		} else if i != len(s)-1 && i != 0 && IsPunc(c) && (IsPunc(rune(s[i-1]))) {
-			new = new + string(c) + " "
+			str = str + string(c) + " "
 		} else {
-			new = new + string(c)
+			str = str + string(c)
 		}
 
 	}
-	return new
+	return str
 }

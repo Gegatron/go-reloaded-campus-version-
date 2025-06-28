@@ -5,7 +5,6 @@ import "strings"
 func IsMultiFlag(s string) bool {
 	b := false
 	if s[0] == '(' && s[len(s)-1] == ')' {
-
 		if strings.HasPrefix(s, "(up,") {
 			for i := 4; i < len(s)-1; i++ {
 				if s[i] != ' ' && !b {
@@ -59,6 +58,5 @@ func IsFlag(s string) bool {
 	if s == "(up)" || s == "(low)" || s == "(cap)" || s=="(bin)" || s=="(hex)" {
 		return true
 	}
-
 	return false
 }

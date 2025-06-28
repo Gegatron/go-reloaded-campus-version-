@@ -7,25 +7,19 @@ import (
 	"unicode"
 )
 
-func Reload(c []string) []string {
+func FixFlags(c []string) []string {
 	temp := ""
 	n := 0
 	c=Clean(strings.Join(c," "))
 	for i := 0; i < len(c); i++ {
-			
-		
-
 		if Paret(c[i]) {
-
-
 			if !IsMultiFlag(strings.Join(Punc(Clean(c[i])), " ")) || !IsFlag(strings.Join(Punc(Clean(c[i])), " "))  {
 				if c[i] != temp {
 					temp = c[i]
-					c[i] = "(" + strings.Join(Reload(Clean(c[i][1:len(c[i])-1])), " ") + ")"
+					c[i] = "(" + strings.Join(FixFlags(Clean(c[i][1:len(c[i])-1])), " ") + ")"
 
 				}
 			}
-
 			if IsFlag(c[i]) {
 			n = 1
 			if n > i {
@@ -56,8 +50,6 @@ func Reload(c []string) []string {
 								c[j] = ToHex(c[j])
 								
 							}
-
-							
 						}else{
 							continue
 						}
@@ -73,13 +65,9 @@ func Reload(c []string) []string {
 			i--
 			continue
 		}
-	
-
-
 			if IsMultiFlag(strings.Join(Punc(Clean(c[i])), " ")) {
 				n, err := GetNumber(c[i])
 				if err != nil {
-					
 					continue
 				}
 				for j := i - 1; j >= 0; j-- {
@@ -106,10 +94,8 @@ func Reload(c []string) []string {
 				i--
 				continue
 			}
-
 		}
 	}
-
 	return c
 }
 
@@ -148,9 +134,11 @@ func Capitalize(s string)string{
 	}
 	return string(new)
 }
+
 func IsLetter(s rune) bool {
 	return unicode.Is(unicode.Latin, (s)) && unicode.IsLetter(s)
 }
+
 func ToHex(s string)string{
 	b:=false
 	if s[len(s)-1]=='\n' {
@@ -182,6 +170,7 @@ if b {
 }
 return strconv.Itoa(int(bin))
 }
+
 func Paret(s string)bool{
 if s[0]=='(' && s[len(s)-1]==')' {
 	return true

@@ -3,36 +3,32 @@ package goreloaded
 import "strings"
 
 func Quotes(reloaded []string) []string {
-	str := strings.Join(reloaded, " ")
-
+	s := strings.Join(reloaded, " ")
 	index := 0
-	new := ""
+	str := ""
 	b := true
-	for i := 0; i < len(str); i++ {
-		if b && str[i] == '\'' {
-			if i == len(str)-1 {
-				new += string(str[i])
+	for i := 0; i < len(s); i++ {
+		if b && s[i] == '\'' {
+			if i == len(s)-1 {
+				str += string(s[i])
 			}
-			new += " "
+			str += " "
 			index = i
 			b = false
-
 			continue
-
 		}
-		if !b && str[i] == '\'' {
-
-			new += "'" + strings.Join(Clean(str[index+1:i])," ") + "'" + " "
+		if !b && s[i] == '\'' {
+			str += "'" + strings.Join(Clean(s[index+1:i]), " ") + "'" + " "
 			b = true
 			continue
 		}
 		if b {
-			new += string(str[i])
+			str += string(s[i])
 		}
-		if !b && i == len(str)-1 {
-			new += str[index:]
+		if !b && i == len(s)-1 {
+			str += s[index:]
 		}
 	}
-	reloaded = Clean(new)
+	reloaded = Clean(str)
 	return reloaded
 }

@@ -24,16 +24,13 @@ func main() {
 			return
 		}
 	}
-
 	str, err := os.ReadFile(filenames[1])
 	if err != nil {
 		fmt.Println("error", err)
 		return
 	}
-
-	fixed := goreloaded.Trait(string(str))
-
-	err = os.WriteFile(filenames[2], []byte(fixed), 0o644)
+	reloaded:= goreloaded.Trait(string(str))
+	err = os.WriteFile(filenames[2], []byte(reloaded), 0o644)
 	if err != nil {
 		fmt.Println("error", err)
 		return
