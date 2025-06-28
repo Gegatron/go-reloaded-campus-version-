@@ -8,22 +8,20 @@ import (
 func Clean(s string) []string {
 	cou := 0
 	var cleaned []string
-	paret := 0
+	paret := false
 	for i := 0; i < len(s); i++ {
 		if s[i] == '(' {
 			for j := i; j < len(s); j++ {
 				if s[j] == ')' {
-					if IsFlag("("+strings.Join(Punc(FixFlags(Clean(s[i+1:j])))," ")+")") || IsMultiFlag("("+strings.Join(Punc(FixFlags(Clean(s[i+1:j])))," ")+")") {
-						paret++
+					if IsFlag("("+strings.Join(Punc((Clean(s[i+1:j])))," ")+")") || IsMultiFlag("("+strings.Join(Punc((Clean(s[i+1:j])))," ")+")") {
+						paret=true
 						break
-					} else {
-						continue
-					}
+					} 
 				}
 			}
 		}
-		if paret > 0 && s[i] == ')' {
-			paret--
+		if paret  && s[i] == ')' {
+			paret=false
 		}
 		if i!=len(s)-3 && s[i] == '\n'  {
 			cou = i - cou
@@ -31,18 +29,18 @@ func Clean(s string) []string {
 			cou = 0
 			continue
 		}
-		if s[i] != ' ' && i != len(s)-1 && paret== 0 {
+		if s[i] != ' ' && i != len(s)-1 && !paret {
 			cou++
 			continue
-		} else if paret > 0 {
+		} else if paret {
 			cou++
 		}
-		if cou != 0 && s[i] == ' ' && paret == 0 {
+		if cou != 0 && s[i] == ' ' && !paret {
 			cou = i - cou
 			cleaned = append(cleaned, s[cou:i])
 			cou = 0
 		}
-		if i == len(s)-1 && s[i] != ' ' && paret == 0 {
+		if i == len(s)-1 && s[i] != ' ' && !paret{
 			cou = i - cou
 			cleaned = append(cleaned, s[cou:])
 		}

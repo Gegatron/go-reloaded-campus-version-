@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"unicode"
-
+	
 	"goreloaded/goreloaded"
 )
 
@@ -30,8 +29,14 @@ func main() {
 		fmt.Println("error", err)
 		return
 	}
-fmt.Println(unicode.IsLetter(rune('👍')))
+
 	reloaded:= goreloaded.Trait(string(str))
+	temp:=""
+	for temp!=reloaded {
+		temp=reloaded
+		reloaded=goreloaded.Trait(string(reloaded))
+		
+	}
 	err = os.WriteFile(filenames[2], []byte(reloaded), 0o644)
 	if err != nil {
 		fmt.Println("error", err)

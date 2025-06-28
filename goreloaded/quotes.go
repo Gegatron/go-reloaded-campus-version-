@@ -12,7 +12,7 @@ func Quotes(reloaded []string) []string {
 	b := true
 	for i ,c:=range s {
 		if !b &&c=='\n' {
-			str += "'" + strings.Join(Clean(s[index+1:i]), " ")
+			str +=  strings.Join(Clean(s[index:i]), " ")
 			b=true
 		}
 		if b &&c == '\'' {
@@ -26,7 +26,7 @@ func Quotes(reloaded []string) []string {
 			b = false
 				continue
 			}
-			if s[i+1]==' ' || s[i-1]==' ' {
+			if s[i+1]==' ' || s[i-1]==' '  || (s[i+1]=='\'' && s[i-1]=='\''){
 				str += " "
 			index = i
 			b = false

@@ -33,6 +33,7 @@ func Trait(s string) string {
 		}
 		str += fixed[i] + " "
 	}
+	
 
 	return str
 }

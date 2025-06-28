@@ -8,18 +8,12 @@ import (
 )
 
 func FixFlags(c []string) []string {
-	temp := ""
+	
 	n := 0
 	c=Clean(strings.Join(c," "))
 	for i := 0; i < len(c); i++ {
-		if Paret(c[i]) {
-			if !IsMultiFlag(strings.Join(Punc(Clean(c[i])), " ")) || !IsFlag(strings.Join(Punc(Clean(c[i])), " "))  {
-				if c[i] != temp {
-					temp = c[i]
-					c[i] = "(" + strings.Join(FixFlags(Clean(c[i][1:len(c[i])-1])), " ") + ")"
-
-				}
-			}
+	
+			
 			if IsFlag(c[i]) {
 			n = 1
 			if n > i {
@@ -65,7 +59,7 @@ func FixFlags(c []string) []string {
 			}
 			c[i] = ""
 			c = Clean(strings.Join(c, " "))
-			i--
+			i=0
 			continue
 		}
 			if IsMultiFlag(strings.Join(Punc(Clean(c[i])), " ")) {
@@ -100,10 +94,10 @@ func FixFlags(c []string) []string {
 				}
 				c[i] = ""
 				c = Clean(strings.Join(c, " "))
-				i--
+				i=0
 				continue
 			}
-		}
+		
 	}
 	return c
 }
