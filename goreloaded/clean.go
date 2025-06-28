@@ -1,7 +1,6 @@
 package goreloaded
 
 import (
-	
 	"strings"
 )
 
@@ -15,7 +14,7 @@ func Clean(s string) []string {
 		if s[i] == '(' {
 			for j := i; j < len(s); j++ {
 				if s[j] == ')' {
-					if IsFlag("("+strings.Join(Punc(Reload(Clean(s[i+1:j])))," ")+")") || IsMultiFlag("("+strings.Join(Punc(Reload(Clean(s[i+1:j])))," ")+")") {
+					if IsFlag("("+strings.Join(Punc(Reload(Clean(s[i+1:j]))), " ")+")") || IsMultiFlag("("+strings.Join(Punc(Reload(Clean(s[i+1:j]))), " ")+")") {
 
 						b++
 						break
@@ -28,6 +27,13 @@ func Clean(s string) []string {
 		if b > 0 && s[i] == ')' {
 			b--
 		}
+
+		if s[i] != ' ' && i != len(s)-1 && b == 0 {
+			cou++
+			continue
+		} else if b > 0 {
+			cou++
+		}
 		if s[i] == '\n' {
 
 			cou = i - cou
@@ -36,13 +42,6 @@ func Clean(s string) []string {
 			cou = 0
 			continue
 		}
-		if s[i] != ' ' && i != len(s)-1 && b == 0 {
-			cou++
-			continue
-		} else if b > 0 {
-			cou++
-		}
-
 		if cou != 0 && s[i] == ' ' && b == 0 {
 			cou = i - cou
 			cleaned = append(cleaned, s[cou:i])
@@ -54,6 +53,6 @@ func Clean(s string) []string {
 			cleaned = append(cleaned, s[cou:])
 		}
 	}
-	
+
 	return cleaned
 }

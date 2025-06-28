@@ -30,5 +30,6 @@ func ATooAn(s []string) []string {
 			}
 		}
 	}
+	s=Clean(strings.Join(s," "))
 	return s
 }

@@ -32,6 +32,8 @@ func MakeSpaces(s string) string {
 			continue
 		} else if i != len(s)-1 && i != 0 && IsPunc(c) && s[i+1] != ' ' && s[i-1] == ' ' {
 			new = new + string(c) + " "
+		} else if i != len(s)-1 && i != 0 && IsPunc(c) && (IsPunc(rune(s[i-1]))) {
+			new = new + string(c) + " "
 		} else {
 			new = new + string(c)
 		}

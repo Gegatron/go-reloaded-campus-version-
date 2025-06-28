@@ -1,42 +1,37 @@
 package goreloaded
 
 
+func Trait(s string) string {
+	proto := MakeSpaces(string(s))
 
-func Trait(s string)string{
-proto := MakeSpaces(string(s))
+	fixed := Clean(proto)
 
-	
-	fixed:=Clean(proto)
-	
-	fixed=Reload(fixed)
-	
-	fixed = Punc(fixed)
-	
+	fixed = Reload(fixed)
+
 	fixed = Quotes(fixed)
 	
-	
+	fixed = Punc(fixed)
 
 	fixed = ATooAn(fixed)
-	
-	str:=""
+
+	str := ""
 	for i := 0; i < len(fixed); i++ {
-		if i==0&&fixed[i]=="\n" {
+		if i == 0 && fixed[i] == "\n" {
 			continue
 		}
-		if fixed[i]=="\n" && fixed[i-1][len(fixed[i-1])-1]=='\n' {
+		if fixed[i] == "\n" && fixed[i-1][len(fixed[i-1])-1] == '\n' {
 			continue
 		}
-		
-		if i!=len(fixed)-1  && fixed[i+1]!="" && fixed[i][len(fixed[i])-1]=='\n' {
-			str+=fixed[i]
+
+		if i != len(fixed)-1 && fixed[i+1] != "" && fixed[i][len(fixed[i])-1] == '\n' {
+			str += fixed[i]
 			continue
-		}else if i==len(fixed)-1{
-			str+=fixed[i]
+		} else if i == len(fixed)-1 {
+			str += fixed[i]
 			continue
 		}
-		str+=fixed[i]+" "
+		str += fixed[i] + " "
 	}
-	
+
 	return str
 }
-

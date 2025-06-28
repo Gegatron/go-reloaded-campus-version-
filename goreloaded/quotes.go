@@ -22,7 +22,7 @@ func Quotes(reloaded []string) []string {
 		}
 		if !b && str[i] == '\'' {
 
-			new += "'" + strings.TrimSpace(str[index+1:i]) + "'" + " "
+			new += "'" + strings.Join(Clean(str[index+1:i])," ") + "'" + " "
 			b = true
 			continue
 		}

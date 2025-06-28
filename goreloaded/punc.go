@@ -8,7 +8,7 @@ func Punc(str []string) []string {
 			str[i] = "(" +strings.Join(Punc(Clean(str[i][1:len(str[i])-1]))," ") + ")"
 		}
 		if i != 0 && AllPunc(str[i]) {
-			str[i-1] = str[i-1] + str[i]
+			str[i-1] =strings.Join( Clean(str[i-1])," ") + str[i]
 			str[i] = ""
 			str = Clean(strings.Join(str, " "))
 			i--
