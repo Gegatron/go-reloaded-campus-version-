@@ -3,27 +3,34 @@ package sidefunctions
 import "strings"
 
 func Quotes(reloaded []string) []string {
-	b := false
+	str := strings.Join(reloaded, " ")
 
-	for i := 0; i < len(reloaded); i++ {
-		if i != len(reloaded)-1 && !b && reloaded[i][len(reloaded[i])-1] == '\'' {
-			if reloaded[i+1][0] != '\'' {
-				reloaded[i+1] = "'" + reloaded[i+1]
-				reloaded[i] = reloaded[i][:len(reloaded[i])-1]
-				reloaded = Clean(strings.Join(reloaded," "))
-				i--
-				b = true
-			}
-		} else if i != 0 && b && reloaded[i][0] == '\'' {
-			if reloaded[i-1][len(reloaded[i-1])-1] != '\'' {
-				reloaded[i-1] = reloaded[i-1] + "'"
-				reloaded[i] = reloaded[i][1:]
-				reloaded = Clean(strings.Join(reloaded," "))
-				i--
-				b = false
-			}
+	index := 0
+	new := ""
+	b := true
+	for i := 0; i < len(str); i++ {
+		if b && str[i] == '\'' {
+
+			new += " "
+			index = i
+			b = false
+
+			continue
+
+		}
+		if !b && str[i] == '\'' {
+
+			new += "'" + strings.TrimSpace(str[index+1:i]) + "'" + " "
+			b = true
+			continue
+		}
+		if b {
+			new += string(str[i])
+		}
+		if !b && i == len(str)-1 {
+			new += str[index:]
 		}
 	}
-
+	reloaded = Clean(new)
 	return reloaded
 }
