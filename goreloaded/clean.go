@@ -23,7 +23,7 @@ func Clean(s string) []string {
 		if paret  && s[i] == ')' {
 			paret=false
 		}
-		if i!=len(s)-3 && s[i] == '\n'  {
+		if i!=len(s)-1 && s[i] == '\n'  {
 			cou = i - cou
 			cleaned = append(cleaned, s[cou:i]+"\n")
 			cou = 0

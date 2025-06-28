@@ -26,12 +26,21 @@ func Quotes(reloaded []string) []string {
 			b = false
 				continue
 			}
-			if s[i+1]==' ' || s[i-1]==' '  || (s[i+1]=='\'' && s[i-1]=='\''){
-				str += " "
+			if b &&s[i+1]==' ' || s[i-1]==' '  || (s[i+1]=='\'' || s[i-1]=='\''){
+				for j := i+1; j < len(s); j++ {
+					if s[j]=='\n' {
+						break
+					}
+					if s[j]=='\'' {
+						str += " "
+					}
+				}
+						
 			index = i
-			b = false
+			b=false
 			continue
-			}
+					}
+			
 			
 		}
 		if !b && c == '\'' {
