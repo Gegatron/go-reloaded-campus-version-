@@ -25,15 +25,11 @@ func IsPunc(s rune) bool {
 }
 
 func AllPunc(s string) bool {
-	cou := 0
+	
 	for _, c := range s {
-		if c == ',' || c == '.' || c == ':' || c == ';' || c == '?' || c == '!' {
-			cou++
+		if !strings.Contains(".,;:!?", string(c)) {
+		return false
 		}
 	}
-	if cou == len(s) {
-		return true
-	} else {
-		return false
-	}
+	return  true
 }

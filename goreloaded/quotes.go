@@ -11,7 +11,7 @@ func Quotes(reloaded []string) []string {
 	b := true
 	for i, c := range s {
 		if !b && c == '\n' {
-			str += strings.Join(Clean(s[index:i]), " ")
+			str += strings.TrimSpace(s[index:i])
 			b = true
 		}
 		if b && c == '\'' {
@@ -42,14 +42,18 @@ func Quotes(reloaded []string) []string {
 
 		}
 		if !b && c == '\'' {
-			str += "'" + strings.Join(Clean(s[index+1:i]), " ") + "'" + " "
-			b = true
+
+			if i != len(s)-1 && (s[i+1] == ' ' || s[i-1] == ' ' || (s[i+1] == '\'' || s[i-1] == '\'')) {
+				str += "'" + strings.TrimSpace(s[index+1:i]) + "'" + " "
+				b = true
+
+			} else if i == len(s)-1 {
+				str += "'" + strings.TrimSpace(s[index+1:i]) + "'"
+			}
 			continue
-		}
-		if b {
+		} else if b {
 			str += string(c)
-		}
-		if !b && i == len(s)-1 {
+		} else if !b && i == len(s)-1 {
 			str += s[index:]
 		}
 	}

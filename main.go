@@ -26,7 +26,7 @@ func main() {
 	}
 	str, err := os.ReadFile(filenames[1])
 	if err != nil {
-		fmt.Println("error", err)
+		fmt.Println("error:", err)
 		return
 	}
 
@@ -39,7 +39,7 @@ func main() {
 	}
 	err = os.WriteFile(filenames[2], []byte(reloaded), 0o644)
 	if err != nil {
-		fmt.Println("error", err)
+		fmt.Println("error:", err)
 		return
 	}
 }
