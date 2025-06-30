@@ -111,7 +111,7 @@ func GetNumber(s string) (int, error) {
 			b=true
 			continue
 		}
-		if !b && (s[i] >='0'  && s[i]<='9') {
+		if !b && (s[i] >='0'  && s[i]<='9') && new==""{
 			new+=string(s[i])
 			b=true
 			continue
