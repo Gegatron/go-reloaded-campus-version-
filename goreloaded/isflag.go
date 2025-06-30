@@ -4,15 +4,18 @@ import "strings"
 
 func IsMultiFlag(s string) bool {
 	b := false
-	if s[0] == '(' && s[len(s)-1] == ')' {
+	if s != "" && Paret(s) {
 		if strings.HasPrefix(s, "(up,") {
 			for i := 4; i < len(s)-1; i++ {
 				if s[i] != ' ' && !b {
-					if (s[i] == '-' || s[i] == '+') && (s[i+1] >= '0' && s[i+1] <='9'){
+					if (s[i] == '-' || s[i] == '+') && (s[i+1] >= '0' && s[i+1] <= '9') {
 						b = true
 						continue
+					} else if s[i] >= '0' && s[i] <= '9' {
+						b = true
+					} else {
+						return false
 					}
-					b = true
 				}
 				if b && (s[i] < '0' || s[i] > '9') {
 					return false
@@ -23,11 +26,14 @@ func IsMultiFlag(s string) bool {
 		if strings.HasPrefix(s, "(low,") {
 			for i := 5; i < len(s)-1; i++ {
 				if s[i] != ' ' && !b {
-					if (s[i] == '-' || s[i] == '+' )&& (s[i+1] >= '0' && s[i+1] <='9') {
+					if (s[i] == '-' || s[i] == '+') && (s[i+1] >= '0' && s[i+1] <= '9') {
 						b = true
 						continue
+					} else if s[i] >= '0' && s[i] <= '9' {
+						b = true
+					} else {
+						return false
 					}
-					b = true
 				}
 				if b && (s[i] < '0' || s[i] > '9') {
 					return false
@@ -38,11 +44,14 @@ func IsMultiFlag(s string) bool {
 		if strings.HasPrefix(s, "(cap,") {
 			for i := 5; i < len(s)-1; i++ {
 				if s[i] != ' ' && !b {
-					if (s[i] == '-' || s[i] == '+') && (s[i+1] >= '0' && s[i+1] <='9'){
+					if (s[i] == '-' || s[i] == '+') && (s[i+1] >= '0' && s[i+1] <= '9') {
 						b = true
 						continue
+					} else if s[i] >= '0' && s[i] <= '9' {
+						b = true
+					} else {
+						return false
 					}
-					b = true
 				}
 				if b && (s[i] < '0' || s[i] > '9') {
 					return false
@@ -55,7 +64,7 @@ func IsMultiFlag(s string) bool {
 }
 
 func IsFlag(s string) bool {
-	if s == "(up)" || s == "(low)" || s == "(cap)" || s=="(bin)" || s=="(hex)" {
+	if s == "(up)" || s == "(low)" || s == "(cap)" || s == "(bin)" || s == "(hex)" {
 		return true
 	}
 	return false

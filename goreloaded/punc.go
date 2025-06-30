@@ -4,9 +4,6 @@ import "strings"
 
 func Punc(str []string) []string {
 	for i := 0; i < len(str); i++ {
-		if Paret(str[i]) {
-			str[i] = "(" + strings.Join(Punc(Clean(str[i][1:len(str[i])-1])), " ") + ")"
-		}
 		if i != 0 && AllPunc(str[i]) {
 			if str[i-1][len(str[i-1])-1] == '\n' {
 				continue

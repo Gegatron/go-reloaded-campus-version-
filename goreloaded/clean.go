@@ -1,50 +1,56 @@
 package goreloaded
 
 import (
-	
 	"strings"
 )
 
 func Clean(s string) []string {
-	cou := 0
+	str := ""
 	var cleaned []string
 	paret := false
-	for i := 0; i < len(s); i++ {
-		if s[i] == '(' {
+	for i, c := range s {
+		if c == '(' {
 			for j := i; j < len(s); j++ {
 				if s[j] == ')' {
-					if IsFlag("("+strings.Join(Punc((Clean(s[i+1:j])))," ")+")") || IsMultiFlag("("+strings.Join(Punc((Clean(s[i+1:j])))," ")+")") {
-						paret=true
+					if IsFlag("("+strings.Join((Clean(s[i+1:j])), "")+")") || IsMultiFlag("("+strings.Join((Clean(s[i+1:j])), "")+")") {
+						if !paret && str != "" {
+
+							cleaned = append(cleaned, str)
+							str = ""
+						}
+						paret = true
 						break
-					} 
+					}
 				}
 			}
 		}
-		if paret  && s[i] == ')' {
-			paret=false
-		}
-		if i!=len(s)-1 && s[i] == '\n'  {
-			cou = i - cou
-			cleaned = append(cleaned, s[cou:i]+"\n")
-			cou = 0
+
+		if paret && c == ')' {
+
+			cleaned = append(cleaned, "("+strings.TrimSpace(str[1:])+")")
+			str = ""
+			paret = false
 			continue
 		}
-		if s[i] != ' ' && i != len(s)-1 && !paret {
-			cou++
+		if i != len(s)-1 && c == '\n' {
+
+			cleaned = append(cleaned, str+"\n")
+
 			continue
-		} else if paret {
-			cou++
 		}
-		if cou != 0 && s[i] == ' ' && !paret {
-			cou = i - cou
-			cleaned = append(cleaned, s[cou:i])
-			cou = 0
+		if c != ' ' && i != len(s)-1 {
+			str += string(c)
+			continue
 		}
-		if i == len(s)-1 && s[i] != ' ' && !paret{
-			cou = i - cou
-			cleaned = append(cleaned, s[cou:])
+		if str != "" && c == ' ' && !paret {
+
+			cleaned = append(cleaned, str)
+			str = ""
+		}
+		if i == len(s)-1 && c != ' ' && !paret {
+			cleaned = append(cleaned, str+string(c))
 		}
 	}
-	
+
 	return cleaned
 }

@@ -1,7 +1,6 @@
 package goreloaded
 
 import (
-	
 	"strings"
 )
 
@@ -10,38 +9,37 @@ func Quotes(reloaded []string) []string {
 	index := 0
 	str := ""
 	b := true
-	for i ,c:=range s {
-		if !b &&c=='\n' {
-			str +=  strings.Join(Clean(s[index:i]), " ")
-			b=true
+	for i, c := range s {
+		if !b && c == '\n' {
+			str += strings.Join(Clean(s[index:i]), " ")
+			b = true
 		}
-		if b &&c == '\'' {
+		if b && c == '\'' {
 			if i == len(s)-1 {
 				str += string(c)
 				continue
 			}
-			if i==0 {
+			if i == 0 {
 				str += " "
-			index = i
-			b = false
+				index = i
+				b = false
 				continue
 			}
-			if b &&s[i+1]==' ' || s[i-1]==' '  || (s[i+1]=='\'' || s[i-1]=='\''){
-				for j := i+1; j < len(s); j++ {
-					if s[j]=='\n' {
+			if b && s[i+1] == ' ' || s[i-1] == ' ' || (s[i+1] == '\'' || s[i-1] == '\'') {
+				for j := i + 1; j < len(s); j++ {
+					if s[j] == '\n' {
 						break
 					}
-					if s[j]=='\'' {
+					if s[j] == '\'' {
 						str += " "
 					}
 				}
-						
-			index = i
-			b=false
-			continue
-					}
-			
-			
+
+				index = i
+				b = false
+				continue
+			}
+
 		}
 		if !b && c == '\'' {
 			str += "'" + strings.Join(Clean(s[index+1:i]), " ") + "'" + " "
@@ -55,7 +53,7 @@ func Quotes(reloaded []string) []string {
 			str += s[index:]
 		}
 	}
-	
+
 	reloaded = Clean(str)
 	return reloaded
 }
