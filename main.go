@@ -18,11 +18,11 @@ func main() {
 		fmt.Println("invalid input")
 		return
 	}
-	for i := 1; i < 3; i++ {
-		if filepath.Ext(filenames[i]) != ".txt" {
+
+		if filepath.Ext(filenames[1]) != ".txt" || filepath.Ext(filenames[2]) != ".txt"  {
 			fmt.Println("invalid input")
 			return
-		}
+	
 	}
 	str, err := os.ReadFile(filenames[1])
 	if err != nil {
